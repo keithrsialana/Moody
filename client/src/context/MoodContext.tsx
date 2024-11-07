@@ -1,26 +1,22 @@
-import React from "react"
+import React, { Dispatch, ReactNode, SetStateAction } from "react"
 
-interface MyComponentProps {
-  children: React.ReactNode;
+interface MoodContextType {
   mood: string;
-  setMood: (mood: string) => void;
-
+  setMood: Dispatch<SetStateAction<string>>;
 }
 
-export const MoodContext = React.createContext('');
+interface MoodProviderProps {
+  children: ReactNode;
+}
 
-export const MoodProvider: React.FC<MyComponentProps> = ({ children }) => {
+export const MoodContext = React.createContext<MoodContextType | undefined>(undefined);
+
+export const MoodProvider: React.FC<MoodProviderProps> = ({ children }) => {
   const [mood, setMood] = React.useState<string>('');
-
-  const setTheMood = (mood: string) => {
-    setMood(mood);
-  }
-
-  const initialContextValue = { mood, setTheMood };
 
 
   return (
-    <MoodContext.Provider value={initialContextValue.mood}>
+    <MoodContext.Provider value={{ mood, setMood }}>
       {children}
     </MoodContext.Provider>
   );
