@@ -67,9 +67,7 @@ const Login = () => {
 			});
 
 			const data = response.json();
-			console.log(`validateLogin = ${data}`);
 			
-			// TODO: might not be the right return
 			if (response.ok) return true;
 			else return false;
 

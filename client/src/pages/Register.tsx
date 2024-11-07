@@ -3,7 +3,7 @@
 // TODO: Import User
 // import User from "../interfaces/User";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
 	// input variables using useState
@@ -69,6 +69,14 @@ const Register = () => {
 				if (!createResponse.ok) {
 					throw new Error("There was a problem with creating the account");
 				}
+
+				// TODO: set user login context
+				
+
+				// redirect user to home page if creation was successful
+				const navigate = useNavigate();
+				navigate('/');
+
 			} else {
 				setWarning("Your passwords do not match");
 			}
