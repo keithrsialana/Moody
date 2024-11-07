@@ -6,6 +6,7 @@ import { StrictMode } from 'react'
 import App from './App'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 // Creates available paths
 const router = createBrowserRouter([
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
+      { path: '/register', element: <Register /> },
       // TODO: Create more paths
     ],
   },

@@ -46,6 +46,13 @@
 	}
 }
 
+@each $att, $value in variables.$colors {
+    .bg-#{$att} {
+        @extend .bg;
+        background-color: $value !important;
+    }
+}
+
 @each $name, $color in variables.$text-colors {
     .text-#{$name}{
         color: $color !important;

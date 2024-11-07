@@ -10,7 +10,7 @@ function App() {
   // TODO: Use contexting to change the website theme based on user preference
 
   return (
-    <div className='theme-dark h-100'>
+    <div className='theme-dark'>
       <Header />
       <main>
         {/* Renders the matched route component */}
