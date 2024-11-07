@@ -1,6 +1,6 @@
 // import React from "react"
 import { Link } from "react-router-dom";
-
+import NavBar from "./NavBar";
 const Header = () => {
 	return (
 		<div className="">
@@ -11,6 +11,7 @@ const Header = () => {
 					className="header-logo"
 				/>
 			</Link>
+			<NavBar />
 		</div>
 	);
 };

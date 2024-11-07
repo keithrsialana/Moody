@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { seq } from '../database';
+import { sequelize } from '../database';
 
 export default class User extends Model {
     public id!: string;
@@ -41,7 +41,7 @@ User.init(
         },
         email: {
             type: DataTypes.STRING,
-            unique:true,
+            unique: true,
             allowNull: true,
         },
         location: {
@@ -59,7 +59,7 @@ User.init(
         },
     },
     {
-        sequelize: seq,
+        sequelize: sequelize,
         tableName: 'users',
         timestamps: false,
     }
