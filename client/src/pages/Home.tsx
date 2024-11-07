@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useContext } from "react";
 
 const style = {
   moodHelp: {
@@ -11,7 +10,6 @@ const style = {
 const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Submitted value:', inputValue);
