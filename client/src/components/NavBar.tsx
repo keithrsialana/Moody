@@ -20,12 +20,12 @@ const NavBar: React.FC = () => {
 		<nav className="d-flex container-fluid justify-content-end">
 			{theme == "theme-light" ? (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
-					<p
+					<div
 						className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black"
 						onClick={() => setTheme("theme-dark")}
 					>
 						Change to Dark Theme
-					</p>
+					</div>
 				</div>
 			) : (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
