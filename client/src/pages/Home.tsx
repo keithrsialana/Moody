@@ -3,12 +3,6 @@ import MoodContext from "../context/MoodContext";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
 
-const style = {
-  moodHelp: {
-    color: 'white'
-  },
-};
-
 const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
@@ -39,6 +33,10 @@ const Home: React.FC = () => {
     setMood(inputValue);
   };
 
+  function onMoodChange(e:any){
+    setInputValue(e.target.value)
+  }
+
   return (
     <div className="container text-center pt-5 vh-100">
       <form action="" onSubmit={handleSubmit}>
@@ -46,12 +44,12 @@ const Home: React.FC = () => {
         <input
           className="form-control required"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={onMoodChange}
           type="text"
           id="moodInput"
           placeholder="I'm feeling..."
         />
-        <div style={style.moodHelp} id="mood-help" className="form-text">We'll never share your mood with anyone else.</div>
+        <div id="mood-help">We'll never share your mood with anyone else.</div>
         <input type="submit" className="btn-primary" />
       </form>
 

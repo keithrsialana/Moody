@@ -1,12 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   build: {
-    // Ensures that dependencies in node_modules are treated as external
-    rollupOptions: {
-      external: ['node_modules']
-    }
+    outDir: '../dist', // Outputs to the root-level dist folder
+    sourcemap: true, // Adds source maps to help debug production issues
   },
   plugins: [react()],
   server: {
@@ -23,4 +21,4 @@ export default defineConfig({
   preview: {
     port: 3000, // for the preview server
   }
-})
+});

@@ -82,7 +82,7 @@ const Login: React.FC = () => {
 	return (
 		<div className="container text-center pt-5 vh-100">
 			<img
-				src="../../public/Moody_logo.svg"
+				src="Moody_logo.svg"
 				alt="Moody Logo"
 				className="login-logo"
 			/>
