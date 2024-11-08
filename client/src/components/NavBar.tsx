@@ -5,7 +5,7 @@ import { useContext } from "react";
 import User from "../interfaces/User";
 
 const NavBar: React.FC = () => {
-	// TODO: Add 'Welcome Username' at the end of the navbar if the user is logged in
+	// Add 'Welcome Username' at the end of the navbar if the user is logged in
 	const context: any = useContext(UserContext);
 	const { loggedInUser, setLoggedInUser } = context;
 
@@ -14,11 +14,11 @@ const NavBar: React.FC = () => {
 	}
 	return (
 		<nav className="d-flex container-fluid justify-content-end">
-			<Link to="/" className="text-decoration-none me-3 d-flex align-items-center">
+      {loggedInUser.username? (<Link to="/" className="text-decoration-none me-3 d-flex align-items-center">
 				<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
 					Home
 				</div>
-			</Link>
+			</Link>):('')}
 			{loggedInUser.username ? (
 				<Link to="/login" className="text-decoration-none me-3 d-flex align-items-center" onClick={logout}				>
 					<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
