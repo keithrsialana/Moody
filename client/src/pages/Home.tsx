@@ -13,14 +13,14 @@ const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
   const context = useContext(MoodContext);
-  const userContext:any = useContext(UserContext);
-  const {loggedInUser} = userContext;
+  const userContext: any = useContext(UserContext);
+  const { loggedInUser } = userContext;
   const naviate = useNavigate();
-  
-  useEffect(()=>{
-    if(!loggedInUser.username)
+
+  useEffect(() => {
+    if (!loggedInUser.username)
       naviate('/login');
-  },[]);
+  }, []);
 
   if (!context) {
     throw new Error("Mood must be used within a MoodProvider");
@@ -37,6 +37,8 @@ const Home: React.FC = () => {
     // store mood in database, also store current datetime. this will be for the history later. 
     // pass mood to the playlist page using useContext
     setMood(inputValue);
+    naviate('/currentplaylist');
+
   };
 
   return (

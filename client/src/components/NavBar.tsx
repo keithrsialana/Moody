@@ -14,11 +14,18 @@ const NavBar: React.FC = () => {
 	}
 	return (
 		<nav className="d-flex container-fluid justify-content-end">
-      {loggedInUser.username? (<Link to="/" className="text-decoration-none me-3 d-flex align-items-center">
+			{loggedInUser.username ? (<Link to="/" className="text-decoration-none me-3 d-flex align-items-center">
 				<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
 					Home
 				</div>
-			</Link>):('')}
+			</Link>) : ('')}
+
+			{loggedInUser.username ? (<Link to="/currentplaylist" className="text-decoration-none me-3 d-flex align-items-center">
+				<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
+					Current Playlist
+				</div>
+			</Link>) : ('')}
+
 			{loggedInUser.username ? (
 				<Link to="/login" className="text-decoration-none me-3 d-flex align-items-center" onClick={logout}				>
 					<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
@@ -26,6 +33,7 @@ const NavBar: React.FC = () => {
 					</div>
 				</Link>
 			) : ("")}
+
 			{loggedInUser.username ? (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
 					{`Welcome back, ${loggedInUser.username}!`}
@@ -37,6 +45,7 @@ const NavBar: React.FC = () => {
 					</div>
 				</Link>
 			)}
+
 		</nav>
 	);
 };

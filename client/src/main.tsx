@@ -7,6 +7,7 @@ import App from './App'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import CurrentPlaylist from './pages/CurrentPlaylist'
 
 // Creates available paths
 const router = createBrowserRouter([
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
+      { path: '/currentplaylist', element: <CurrentPlaylist /> },
       // TODO: Create more paths
     ],
   },
@@ -24,6 +26,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </StrictMode>
 )
