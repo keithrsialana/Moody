@@ -20,4 +20,7 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    port: 3000, // for the preview server
+  }
 })

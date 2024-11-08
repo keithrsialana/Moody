@@ -80,7 +80,7 @@ export const validateUser = async (
 		// if the user has been found
 		if (dbUser) {
 			// compare passwords using bcrypt
-			bcrypt.compare(password, dbUser.password).then((isMatch) => {
+			bcrypt.compare(password, dbUser.dataValues.password).then((isMatch) => {
 				// return user object if valid, else, send error
 				if (isMatch) res.status(200).json(dbUser);
 				else res.status(404).json({ message: "Wrong password" });

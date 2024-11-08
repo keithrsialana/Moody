@@ -1,15 +1,18 @@
 // import React from "react"
-// TODO: Implement context stuff
-// TODO: Import User
-// import User from "../interfaces/User";
-import { useState } from "react";
+import User from "../interfaces/User";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../context/LoginContext";
 
-const Login = () => {
+const Login: React.FC = () => {
 	// input variables using useState
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [warning, setWarning] = useState("");
+	const context: any = useContext(UserContext);
+	const { setLoggedInUser } = context;
+	const navigate = useNavigate();
 
 	// validate input
 	function onUsernameChange(e: any) {
@@ -28,32 +31,33 @@ const Login = () => {
 		e.preventDefault();
 		// get data from server
 		try {
-			const response = await fetch(`/api/user/${username}`, {
+			await fetch(`/api/user/${username}`, {
 				headers: {
 					"Content-Type": "application/json",
 				},
-			});
-
-			// if bad response, error
-			if (!response.ok) {
-				throw new Error("Invalid user API response, check network tab!");
-			}
-			// else, validate information
-			const data = response.json();
-
-			if (await validateLogin(username, password))
-				// TODO: Do something here
-				console.log(data);
-			else
+			})
+			.then((response) => response.json()) // if the return was successful
+			.then(async (data) => {
+				if (await validateLogin(username, password)) {
+					const dbUser:User =  data;
+					console.log(dbUser);
+					setLoggedInUser(dbUser as User);
+					navigate("/");
+				}
+				else {
+					setWarning("Wrong password");
+				}
+			})
+			.catch((error:any) => { // if there was something wrong with the response
 				setWarning("Wrong username or password");
-
-
+				throw new Error(error);
+			});
 		} catch (error) {
 			console.warn({ message: "there was an error", error: error });
 		}
 	}
 
-	async function validateLogin(user: string, pass: string):Promise<boolean> {
+	async function validateLogin(user: string, pass: string): Promise<boolean> {
 		try {
 			const response = await fetch("/api/login", {
 				method: "POST",
@@ -66,13 +70,8 @@ const Login = () => {
 				}),
 			});
 
-			const data = response.json();
-			console.log(`validateLogin = ${data}`);
-			
-			// TODO: might not be the right return
 			if (response.ok) return true;
 			else return false;
-
 		} catch (error) {
 			throw new Error(
 				"Something went wrong with validating the login information"
