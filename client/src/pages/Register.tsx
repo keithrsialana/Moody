@@ -1,18 +1,22 @@
 // import React from "react"
-// TODO: Implement context stuff
-// TODO: Import User
-// import User from "../interfaces/User";
-import { useState } from "react";
+import UserContext from "../context/LoginContext";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import User from "../interfaces/User";
 
-const Register = () => {
+const Register: React.FC = () => {
 	// input variables using useState
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const [warning, setWarning] = useState("");
-	// validate input
+	const navigate = useNavigate();
 
+	// set user login context
+	const context:any = useContext(UserContext);
+	const { setLoggedInUser } = context;
+	
+	// validate input
 	function onUsernameChange(e: any) {
 		if (e.target.value == "") setWarning("Your username is empty");
 		else setWarning("");
@@ -70,12 +74,14 @@ const Register = () => {
 					throw new Error("There was a problem with creating the account");
 				}
 
-				// TODO: set user login context
 				
+				const data = await createResponse.json();
+				const userObj:User = data.user;
+
+				setLoggedInUser(userObj);
 
 				// redirect user to home page if creation was successful
-				const navigate = useNavigate();
-				navigate('/');
+				navigate("/");
 
 			} else {
 				setWarning("Your passwords do not match");
