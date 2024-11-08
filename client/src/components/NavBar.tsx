@@ -29,12 +29,12 @@ const NavBar: React.FC = () => {
 				</div>
 			) : (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
-					<p
+					<div
 						className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black"
 						onClick={() => setTheme("theme-light")}
 					>
 						Change to Light Theme
-					</p>
+					</div>
 				</div>
 			)}
 			{loggedInUser.username ? (
