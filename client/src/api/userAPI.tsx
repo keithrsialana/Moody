@@ -49,9 +49,9 @@ const getUserByUsername = async (username: string) => {
 const registerUser = async (username: string, password: string) => {
 	try {
 		const response = await fetch("/auth/register/", {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
 				username: username,
@@ -72,12 +72,12 @@ const registerUser = async (username: string, password: string) => {
 	}
 };
 
-const login = async (username:string, password:string) => {
+const login = async (username: string, password: string) => {
 	try {
 		const response = await fetch("/auth/login/", {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
 				username: username,
@@ -96,6 +96,6 @@ const login = async (username:string, password:string) => {
 		console.log("Error from data retrieval:", err);
 		return [];
 	}
-}
+};
 
-export { getUserByUsername, getUsers, registerUser };
+export { getUserByUsername, getUsers, registerUser, login };

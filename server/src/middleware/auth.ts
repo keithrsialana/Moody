@@ -24,7 +24,7 @@ export const authenticateToken = (
 		const secretKey = process.env.JWT_SECRET_KEY || "";
 
 		// Verify the JWT token
-		jwt.verify(token, secretKey, (err, user) => {
+		jwt.verify(token, secretKey, (err:any, user:any) => {
 			if (err) {
 				return res.sendStatus(403); // Send forbidden status if the token is invalid
 			}

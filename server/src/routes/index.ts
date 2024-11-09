@@ -1,8 +1,8 @@
 import express from 'express';
-import userRoutes from './userRoutes';
-import spotifyRoutes from './spotifyRoutes';
-import authRoutes from './authRoutes';
-import { authenticateToken } from '../middleware/auth';
+import userRoutes from './userRoutes.js';
+import spotifyRoutes from './spotifyRoutes.js';
+import authRoutes from './authRoutes.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

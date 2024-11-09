@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 import "./styles/main.scss";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Includes Popper.js as well
 import { MoodProvider } from "./context/MoodContext";
 import { UserProvider } from "./context/LoginContext";

@@ -1,6 +1,6 @@
 // Static class that handles all the API calls
 class Spotify {
-	accessToken: string = "";
+	accessToken = "";
 	// TODO: Create functions the grab data from the spotify API
 	generateAuthCode() {
 		const clientID = process.env.S_CLIENTID;

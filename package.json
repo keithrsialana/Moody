@@ -1,28 +1,28 @@
 {
-	"name": "moody",
-	"private": true,
-	"version": "0.0.0",
-	"workspaces": [
-		"client",
-		"server"
-	],
-	"scripts": {
-		"dev": "concurrently \"npm run dev -w server\" \"npm run dev -w client\" ",
-		"build": "npm run build -w client && npm run build -w server",
-		"lint": "eslint .",
-		"preview": "npm run preview -w client",
-		"start": "npm run build && concurrently \"npm run start -w server\" \"npm run preview -w client\""
-	},
-	"devDependencies": {
-		"@types/express": "^5.0.0",
-		"@types/node": "^22.9.0",
-		"concurrently": "^9.1.0",
-		"eslint": "^9.13.0",
-		"nodemon": "^3.1.7",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.6.2"
-	},
-	"dependencies": {
-		"sass": "^1.80.6"
-	}
+  "name": "main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm i && npm run seed && npm run build && npm run start:dev",
+    "start": "npm run client:build && npm run server",
+    "start:dev": "concurrently \"npm run server:dev\" \"wait-on tcp:3001 && npm run client:dev\"",
+    "server": "cd server && npm start",
+    "server:dev": "cd server && npm run dev",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "client:build": "cd client && npm run build",
+    "client:dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "seed": "cd server && npm run seed",
+    "render-build": "npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.3",
+    "wait-on": "^7.2.0"
+  }
 }

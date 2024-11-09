@@ -1,10 +1,8 @@
 // import React from "react"
-import UserContext from "../context/LoginContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import User from "../interfaces/User";
 import Auth from "../utils/auth";
-import { getUserByUsername, getUsers, registerUser } from "../api/userAPI";
+import { registerUser } from "../api/userAPI";
 
 const Register: React.FC = () => {
 	// input variables using useState
@@ -14,9 +12,8 @@ const Register: React.FC = () => {
 	const [warning, setWarning] = useState("");
 	const navigate = useNavigate();
 
-	// set user login context
-	const context: any = useContext(UserContext);
-	const { setLoggedInUser } = context;
+	// // set user login context
+	// const context: any = useContext(UserContext);
 
 	// validate input
 	function onUsernameChange(e: any) {

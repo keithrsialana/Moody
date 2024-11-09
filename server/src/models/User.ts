@@ -80,16 +80,15 @@ export function UserFactory(sequelize: Sequelize): typeof User {
 			tableName: "users",
 			sequelize,
 			hooks: {
-				// Before creating a new user, hash and set the password
-				beforeCreate: async (user: User) => {
-					let userObj = user.toJSON();
-					const {password} = userObj;
+				afterValidate: async (user: User) => {
+					// Now, user.password is accessible because it's already set
+					const { password } = user;
+					// Hash the password here
 					await user.setPassword(password);
 				},
-				// Before updating a user, hash and set the new password if it has changed
 				beforeUpdate: async (user: User) => {
 					const userObj = user.toJSON();
-					const {password} = userObj;
+					const { password } = userObj;
 					if (user.changed("password")) {
 						await user.setPassword(password);
 					}
