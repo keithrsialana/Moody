@@ -7,6 +7,7 @@ import { login } from "../api/userAPI";
 import Auth from "../utils/auth";
 import { useContext } from "react";
 import UserContext from "../context/LoginContext";
+import { text } from "stream/consumers";
 
 const Login: React.FC = () => {
 	// input variables using useState
@@ -16,6 +17,13 @@ const Login: React.FC = () => {
 	const context: any = useContext(UserContext);
 	const { setLoginToken } = context;
 	const navigate = useNavigate();
+
+	const [showPass, setShowPass] = useState(false);
+
+	const passButton = (e:any) => {
+		e.preventDefault()
+  		setShowPass(!showPass);
+	} 
 
 	// validate input
 	function onUsernameChange(e: any) {
@@ -59,7 +67,7 @@ const Login: React.FC = () => {
 							Username
 						</label>
 					</div>
-					<div className="col-7">
+					<div className="col-7 w-50">
 						<input
 							type="text"
 							className="form-control"
@@ -76,15 +84,22 @@ const Login: React.FC = () => {
 							Password
 						</label>
 					</div>
-					<div className="col-7">
+					<div className="col-7 input-group mb-3 w-50">
 						<input
-							type="password"
-							className="form-control"
+							type={showPass?'text':'password'} 
+							className="form-control w-50"
 							id="inpPassword"
 							placeholder="Password"
 							value={password}
 							onChange={onPasswordChange}
-						/>
+							aria-describedby="button-addon2"
+						/> 
+						<button 
+						className="btn btn-outline-secondary" 
+						type="button" id="button-addon2"
+						onClick={passButton}
+						>👁️</button>
+
 					</div>
 				</div>
 				<div className="row justify-content-center">
