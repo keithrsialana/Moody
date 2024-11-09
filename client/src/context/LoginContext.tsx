@@ -1,9 +1,13 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
-import User from "../interfaces/User";
+
+interface TokenPack {
+  token:string,
+  username:string
+}
 
 interface UserContextType {
-  loggedInUser: User;
-  setLoggedInUser: Dispatch<SetStateAction<User>>;
+  loginToken: TokenPack;
+  setLoginToken: Dispatch<SetStateAction<TokenPack>>;
 }
 
 interface UserProviderProps {
@@ -12,10 +16,10 @@ interface UserProviderProps {
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
-  const [loggedInUser, setLoggedInUser] = useState<User>({} as User);
+  const [loginToken, setLoginToken] = useState<TokenPack>({} as TokenPack);
 
   return (
-    <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
+    <UserContext.Provider value={{loginToken, setLoginToken}}>
       {children}
     </UserContext.Provider>
   );

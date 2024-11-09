@@ -1,8 +1,10 @@
 // import React from "react"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import { registerUser } from "../api/userAPI";
+import UserContext from "../context/LoginContext";
+
 
 const Register: React.FC = () => {
 	// input variables using useState
@@ -10,6 +12,8 @@ const Register: React.FC = () => {
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const [warning, setWarning] = useState("");
+	const context:any = useContext(UserContext);
+	const {setLoginToken} = context;
 	const navigate = useNavigate();
 
 	// // set user login context
@@ -50,6 +54,7 @@ const Register: React.FC = () => {
 					setWarning("An account with that username already exists");
 					return;
 				} else {
+					setLoginToken({newUser,username});
 					Auth.login(newUser.token);
 					// redirect user to home page if creation was successful
 					navigate("/");

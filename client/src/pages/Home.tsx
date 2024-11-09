@@ -8,11 +8,11 @@ const Home: React.FC = () => {
   const [inputValue, setInputValue] = React.useState('');
   const context = useContext(MoodContext);
   const userContext:any = useContext(UserContext);
-  const {loggedInUser} = userContext;
+  const {loginToken} = userContext;
   const naviate = useNavigate();
   
   useEffect(()=>{
-    if(!loggedInUser.username)
+    if(!loginToken.username)
       naviate('/login');
   },[]);
 

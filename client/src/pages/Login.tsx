@@ -5,15 +5,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../api/userAPI";
 import Auth from "../utils/auth";
-// import UserContext from "../context/LoginContext";
+import { useContext } from "react";
+import UserContext from "../context/LoginContext";
 
 const Login: React.FC = () => {
 	// input variables using useState
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [warning, setWarning] = useState("");
-	// const context: any = useContext(UserContext);
-	// const { setLoggedInUser } = context;
+	const context: any = useContext(UserContext);
+	const { setLoginToken } = context;
 	const navigate = useNavigate();
 
 	// validate input
@@ -34,11 +35,12 @@ const Login: React.FC = () => {
 		// get data from server
 		const data = await login(username,password);
 		if (!data.token){
-			setWarning("An account with that username already exists");
+			setWarning("Wrong username or password");
 			return;
 		}
+		setLoginToken(data);
 		Auth.login(data.token);
-		navigate('/');
+		navigate("/");
 	}
 
 	return (

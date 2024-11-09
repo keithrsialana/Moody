@@ -12,7 +12,7 @@ app.use(express.json());
 // Use the user routes
 app.use(allRoutes);
 
-sequelize.sync({force:false}).then(() => {
+sequelize.sync({force:true}).then(() => {
     app.listen(port, () => {
         console.log(`Server is running on http://localhost:${port}`);
     });

@@ -29,7 +29,7 @@ import bcrypt from 'bcrypt';
 
 		// Generate a JWT token for the authenticated user
 		const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
-		return res.status(200).json({ token }); // Send the token as a JSON response
+		return res.status(200).json({ token, username }); // Send the token as a JSON response
 	}
 
 	export const register = async (req:any, res:any) => {

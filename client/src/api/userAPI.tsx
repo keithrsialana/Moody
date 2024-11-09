@@ -21,7 +21,7 @@ const getUsers = async () => {
 	}
 };
 
-const getUserByUsername = async (username: string) => {
+const getUsername = async (username: string) => {
 	try {
 		const response = await fetch("/api/user/", {
 			headers: {
@@ -98,4 +98,4 @@ const login = async (username: string, password: string) => {
 	}
 };
 
-export { getUserByUsername, getUsers, registerUser, login };
+export { getUsername, getUsers, registerUser, login };
