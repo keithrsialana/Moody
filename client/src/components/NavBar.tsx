@@ -1,20 +1,24 @@
 // import React from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
 import { useContext } from "react";
-import User from "../interfaces/User";
+import Auth from "../utils/auth";
 import ThemeContext from "../context/ThemeContext";
 
 const NavBar: React.FC = () => {
 	// Add 'Welcome Username' at the end of the navbar if the user is logged in
 	const context: any = useContext(UserContext);
-	const { loggedInUser, setLoggedInUser } = context;
+	const { loginToken, setLoginToken } = context;
 
 	const themeContext: any = useContext(ThemeContext);
 	const { theme, setTheme } = themeContext;
 
-	async function logout() {
-		setLoggedInUser({} as User);
+	const navigate = useNavigate();
+
+	async function userLogout() {
+		setLoginToken({});
+		Auth.logout();
+		navigate("/login");
 	}
 	return (
 		<nav className="d-flex container-fluid justify-content-end">
@@ -37,7 +41,7 @@ const NavBar: React.FC = () => {
 					</div>
 				</div>
 			)}
-			{loggedInUser.username ? (
+			{loginToken.username ? (
 				<Link
 					to="/"
 					className="text-decoration-none me-3 d-flex align-items-center"
@@ -49,11 +53,11 @@ const NavBar: React.FC = () => {
 			) : (
 				""
 			)}
-			{loggedInUser.username ? (
+			{loginToken.username ? (
 				<Link
 					to="/login"
 					className="text-decoration-none me-3 d-flex align-items-center"
-					onClick={logout}
+					onClick={userLogout}
 				>
 					<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
 						Logout
@@ -62,9 +66,9 @@ const NavBar: React.FC = () => {
 			) : (
 				""
 			)}
-			{loggedInUser.username ? (
+			{loginToken.username ? (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
-					{`Welcome back, ${loggedInUser.username}!`}
+					{`Welcome back, ${loginToken.username}!`}
 				</div>
 			) : (
 				<Link
