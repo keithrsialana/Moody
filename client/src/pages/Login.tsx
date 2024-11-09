@@ -19,10 +19,10 @@ const Login: React.FC = () => {
 
 	const [showPass, setShowPass] = useState(false);
 
-	const passButton = (e:any) => {
-		e.preventDefault()
-  		setShowPass(!showPass);
-	} 
+	const passButton = (e: any) => {
+		e.preventDefault();
+		setShowPass(!showPass);
+	};
 
 	// validate input
 	function onUsernameChange(e: any) {
@@ -40,8 +40,8 @@ const Login: React.FC = () => {
 		// prevents refreshing
 		e.preventDefault();
 		// get data from server
-		const data = await login(username,password);
-		if (!data.token){
+		const data = await login(username, password);
+		if (!data.token) {
 			setWarning("Wrong username or password");
 			return;
 		}
@@ -52,11 +52,7 @@ const Login: React.FC = () => {
 
 	return (
 		<div className="container text-center pt-5 vh-100">
-			<img
-				src="Moody_logo.svg"
-				alt="Moody Logo"
-				className="login-logo"
-			/>
+			<img src="Moody_logo.svg" alt="Moody Logo" className="login-logo" />
 			<h1>Log in to Moody</h1>
 			<form>
 				<div className="warnings mb-4">{warning}</div>
@@ -85,19 +81,31 @@ const Login: React.FC = () => {
 					</div>
 					<div className="col-7 input-group mb-3 w-50">
 						<input
-							type={showPass?'text':'password'} 
+							type={showPass ? "text" : "password"}
 							className="form-control w-50"
 							id="inpPassword"
 							placeholder="Password"
 							value={password}
 							onChange={onPasswordChange}
 							aria-describedby="button-addon2"
+<<<<<<< HEAD
 						/> 
 						<button 
 						className="btn btn-outline-secondary" 
 						type="button" id="button-addon2"
 						onClick={passButton}
 						>👁️</button>
+=======
+						/>
+						<button
+							className="btn btn-outline-secondary"
+							type="button"
+							id="button-addon2"
+							onClick={passButton}
+						>
+							👁️
+						</button>
+>>>>>>> abff10c7b9f3f3968ad43e42484e3b637bb4c89a
 					</div>
 				</div>
 				<div className="row justify-content-center">
