@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize, Optional as _Optional } from "sequelize";
+import bcrypt from "bcrypt";
 
 interface UserAttributes {
 	id: number;
@@ -13,7 +14,10 @@ interface UserAttributes {
 
 interface UserCreationAttributes extends _Optional<UserAttributes, "id"> {}
 
-export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
+export class User
+	extends Model<UserAttributes, UserCreationAttributes>
+	implements UserAttributes
+{
 	public id!: number;
 	public username!: string;
 	public first_name!: string | null;
@@ -25,6 +29,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 
 	public readonly created_at!: Date;
 	public readonly updated_at!: Date;
+
+	public async setPassword(password: string) {
+		const saltRounds = 10;
+		this.password = await bcrypt.hash(password, saltRounds);
+	}
 }
 
 export function UserFactory(sequelize: Sequelize): typeof User {
@@ -33,7 +42,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
 		{
 			id: {
 				type: DataTypes.INTEGER,
-				autoIncrement:true,
+				autoIncrement: true,
 				primaryKey: true,
 			},
 			username: {
@@ -68,13 +77,28 @@ export function UserFactory(sequelize: Sequelize): typeof User {
 			},
 		},
 		{
+			tableName: "users",
 			sequelize,
-			tableName: 'users',
+			hooks: {
+				afterValidate: async (user: User) => {
+					// Now, user.password is accessible because it's already set
+					const { password } = user;
+					// Hash the password here
+					await user.setPassword(password);
+				},
+				beforeUpdate: async (user: User) => {
+					const userObj = user.toJSON();
+					const { password } = userObj;
+					if (user.changed("password")) {
+						await user.setPassword(password);
+					}
+				},
+			},
 			timestamps: true,
-            underscored: true,
-            freezeTableName: true,
+			underscored: true,
+			freezeTableName: true,
 		}
 	);
 
-    return User;
+	return User;
 }

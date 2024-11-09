@@ -1,8 +1,11 @@
 // import React from "react"
-import User from "../interfaces/User";
+// import User from "../interfaces/User";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../api/userAPI";
+import Auth from "../utils/auth";
+import { useContext } from "react";
 import UserContext from "../context/LoginContext";
 
 const Login: React.FC = () => {
@@ -11,7 +14,7 @@ const Login: React.FC = () => {
 	const [password, setPassword] = useState("");
 	const [warning, setWarning] = useState("");
 	const context: any = useContext(UserContext);
-	const { setLoggedInUser } = context;
+	const { setLoginToken } = context;
 	const navigate = useNavigate();
 
 	// validate input
@@ -30,53 +33,14 @@ const Login: React.FC = () => {
 		// prevents refreshing
 		e.preventDefault();
 		// get data from server
-		try {
-			await fetch(`/api/user/${username}`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-			.then((response) => response.json()) // if the return was successful
-			.then(async (data) => {
-				if (await validateLogin(username, password)) {
-					const dbUser:User =  data;
-					console.log(dbUser);
-					setLoggedInUser(dbUser as User);
-					navigate("/");
-				}
-				else {
-					setWarning("Wrong password");
-				}
-			})
-			.catch((error:any) => { // if there was something wrong with the response
-				setWarning("Wrong username or password");
-				throw new Error(error);
-			});
-		} catch (error) {
-			console.warn({ message: "there was an error", error: error });
+		const data = await login(username,password);
+		if (!data.token){
+			setWarning("Wrong username or password");
+			return;
 		}
-	}
-
-	async function validateLogin(user: string, pass: string): Promise<boolean> {
-		try {
-			const response = await fetch("/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					username: user,
-					password: pass,
-				}),
-			});
-
-			if (response.ok) return true;
-			else return false;
-		} catch (error) {
-			throw new Error(
-				"Something went wrong with validating the login information"
-			);
-		}
+		setLoginToken(data);
+		Auth.login(data.token);
+		navigate("/");
 	}
 
 	return (

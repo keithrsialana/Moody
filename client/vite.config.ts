@@ -1,24 +1,36 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    outDir: '../dist', // Outputs to the root-level dist folder
-    sourcemap: true, // Adds source maps to help debug production issues
+	build: {
+		rollupOptions: {
+			external: ["bootstrap"],
+		},
+	},
+  preview:{
+    port: 3000
   },
-  plugins: [react()],
-  server: {
-    port: 3000,
-    open: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
-  preview: {
-    port: 3000, // for the preview server
-  }
+	server: {
+		port: 3000,
+		open: true,
+		proxy: {
+			"/api": {
+				target: "http://localhost:3001",
+				changeOrigin: true,
+				secure: false,
+			},
+			"/auth": {
+				target: "http://localhost:3001",
+				changeOrigin: true,
+				secure: false,
+			},
+		},
+	},
+	css: {
+		preprocessorOptions: {
+			scss: {
+				includePaths: ["./node_modules"],
+			},
+		},
+	},
 });

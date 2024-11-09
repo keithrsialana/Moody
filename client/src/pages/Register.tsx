@@ -1,8 +1,10 @@
 // import React from "react"
-import UserContext from "../context/LoginContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import User from "../interfaces/User";
+import Auth from "../utils/auth";
+import { registerUser } from "../api/userAPI";
+import UserContext from "../context/LoginContext";
+
 
 const Register: React.FC = () => {
 	// input variables using useState
@@ -10,12 +12,13 @@ const Register: React.FC = () => {
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const [warning, setWarning] = useState("");
+	const context:any = useContext(UserContext);
+	const {setLoginToken} = context;
 	const navigate = useNavigate();
 
-	// set user login context
-	const context:any = useContext(UserContext);
-	const { setLoggedInUser } = context;
-	
+	// // set user login context
+	// const context: any = useContext(UserContext);
+
 	// validate input
 	function onUsernameChange(e: any) {
 		if (e.target.value == "") setWarning("Your username is empty");
@@ -45,44 +48,17 @@ const Register: React.FC = () => {
 		// check if the passwords are the same
 		try {
 			if (password === passwordConfirm) {
-				// check if the username already exists in the database
-				const response = await fetch(`/api/user/${username}`, {
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
-
-				// if user was found, error
-				if (response.ok) {
+				const newUser: any = await registerUser(username, password);
+				// if bad response, error
+				if (!newUser.token) {
 					setWarning("An account with that username already exists");
 					return;
+				} else {
+					setLoginToken({newUser,username});
+					Auth.login(newUser.token);
+					// redirect user to home page if creation was successful
+					navigate("/");
 				}
-				// if not, create user
-				const createResponse = await fetch("/api/users", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						username: username,
-						password: password,
-					}),
-				});
-
-				// if bad response, error
-				if (!createResponse.ok) {
-					throw new Error("There was a problem with creating the account");
-				}
-
-				
-				const data = await createResponse.json();
-				const userObj:User = data.user;
-
-				setLoggedInUser(userObj);
-
-				// redirect user to home page if creation was successful
-				navigate("/");
-
 			} else {
 				setWarning("Your passwords do not match");
 			}

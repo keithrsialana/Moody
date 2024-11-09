@@ -1,20 +1,21 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "env/.env" });
 import { Sequelize } from "sequelize";
 
-const env = process.env;
-
-const sequelize = env.DB_URL
-	? new Sequelize(env.DB_URL)
-	: new Sequelize({
-			host: "localhost",
-			dialect: "postgres",
-			dialectOptions: {
-				decimalNumbers: true,
-			},
-			username: env.DB_USER || "postgres",
-			password: env.DB_PASS || "rootroot",
-			database: env.DB_DATABASE,
-	  });
+dotenv.config();
+console.log(process.env.DB_USER, process.env.DB_PASSWORD);
+const sequelize = process.env.DB_URL
+	? new Sequelize(process.env.DB_URL)
+	: new Sequelize(
+        process.env.DB_NAME || "",
+        process.env.DB_USER || "",
+        process.env.DB_PASSWORD,
+        {
+            host: "localhost",
+            dialect: "postgres",
+            dialectOptions: {
+                decimalNumbers: true,
+            },
+        }
+	);
 
 export default sequelize;

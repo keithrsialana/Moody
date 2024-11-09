@@ -1,16 +1,13 @@
 {
-	"extends": "../tsconfig.json",
-	"compilerOptions": {
-		"outDir": "../dist/server", // Output directory for compiled JavaScript files
-		"rootDir": "src", // Root directory for source TypeScript files
-		"moduleResolution": "node", // Use Node.js-style module resolution
-		"module": "CommonJS", // Ensure it compiles using CommonJS module system
-		"target": "ESNext", // Target modern JavaScript (ESNext) features
-		"esModuleInterop": true, // Enables default import interoperability between CommonJS and ESModules
-		"strict": true, // Enables all strict type-checking options
-		"skipLibCheck": true, // Skip type checking of declaration files
-		"types": ["node"] // Include Node.js types for server-side code
-	},
-	"include": ["src/**/*"], // Include all files in the `src` directory
-	"exclude": ["node_modules"] // Exclude `node_modules` folder from compilation
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    /* Modules */
+    "rootDir": "src" /* Specify the root folder within your source files. */,
+
+    /* Emit */
+    "outDir": "dist" /* Specify an output folder for all emitted files. */
+    // "noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */
+  },
+  "include": ["src"],
+  "typeRoots": ["./node_modules/@types", "./src/types"]
 }
