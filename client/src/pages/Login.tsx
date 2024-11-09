@@ -88,24 +88,13 @@ const Login: React.FC = () => {
 							value={password}
 							onChange={onPasswordChange}
 							aria-describedby="button-addon2"
-<<<<<<< HEAD
 						/> 
-						<button 
-						className="btn btn-outline-secondary" 
-						type="button" id="button-addon2"
-						onClick={passButton}
-						>👁️</button>
-=======
-						/>
 						<button
 							className="btn btn-outline-secondary"
 							type="button"
 							id="button-addon2"
 							onClick={passButton}
-						>
-							👁️
-						</button>
->>>>>>> abff10c7b9f3f3968ad43e42484e3b637bb4c89a
+						>👁️</button>
 					</div>
 				</div>
 				<div className="row justify-content-center">
