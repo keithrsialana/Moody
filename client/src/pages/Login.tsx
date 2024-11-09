@@ -1,17 +1,17 @@
 // import React from "react"
-import User from "../interfaces/User";
+// import User from "../interfaces/User";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import UserContext from "../context/LoginContext";
+// import UserContext from "../context/LoginContext";
 
 const Login: React.FC = () => {
 	// input variables using useState
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [warning, setWarning] = useState("");
-	const context: any = useContext(UserContext);
-	const { setLoggedInUser } = context;
+	// const context: any = useContext(UserContext);
+	// const { setLoggedInUser } = context;
 	const navigate = useNavigate();
 
 	// validate input
@@ -31,17 +31,21 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		// get data from server
 		try {
-			await fetch(`/api/user/${username}`, {
+			await fetch(`/auth/user/${username}`, {
 				headers: {
 					"Content-Type": "application/json",
 				},
 			})
 			.then((response) => response.json()) // if the return was successful
 			.then(async (data) => {
+
+				// checks if the user entered the right credentials
+				// TODO: Implement JWT
 				if (await validateLogin(username, password)) {
-					const dbUser:User =  data;
+					const dbUser =  {};
+					// debug
 					console.log(dbUser);
-					setLoggedInUser(dbUser as User);
+					// setLoggedInUser(dbUser as User);
 					navigate("/");
 				}
 				else {
@@ -56,10 +60,9 @@ const Login: React.FC = () => {
 			console.warn({ message: "there was an error", error: error });
 		}
 	}
-
 	async function validateLogin(user: string, pass: string): Promise<boolean> {
 		try {
-			const response = await fetch("/api/login", {
+			const response = await fetch("/auth/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -69,6 +72,8 @@ const Login: React.FC = () => {
 					password: pass,
 				}),
 			});
+
+			console.log(response);
 
 			if (response.ok) return true;
 			else return false;
