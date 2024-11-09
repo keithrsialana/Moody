@@ -7,7 +7,6 @@ import { login } from "../api/userAPI";
 import Auth from "../utils/auth";
 import { useContext } from "react";
 import UserContext from "../context/LoginContext";
-import { text } from "stream/consumers";
 
 const Login: React.FC = () => {
 	// input variables using useState
@@ -99,7 +98,6 @@ const Login: React.FC = () => {
 						type="button" id="button-addon2"
 						onClick={passButton}
 						>👁️</button>
-
 					</div>
 				</div>
 				<div className="row justify-content-center">
