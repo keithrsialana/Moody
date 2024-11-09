@@ -11,6 +11,10 @@ import bcrypt from 'bcrypt';
 		});
 
 		const user = data?.toJSON();
+		if(!user)
+		{
+			return res.status(401).json({ message: "Account doesn't exist" });
+		}
 
 		// If user is not found, send an authentication failed response
 		if (!user.username) {

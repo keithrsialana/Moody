@@ -25,5 +25,8 @@ dist-ssr
 package-lock.json
 /server/env/.env
 /package-lock.json
+<<<<<<< HEAD
+=======
 /server/src/.env
+>>>>>>> 91665917180170ffefcd6d26780e0dbc513dc957
 /server/.env
