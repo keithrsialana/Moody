@@ -2,12 +2,26 @@ import React, { useContext, useEffect } from "react";
 import MoodContext from "../context/MoodContext";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
-
+import axios from 'axios';
 const style = {
   moodHelp: {
     color: 'white'
   },
 };
+
+
+const backendUrl = 'http://localhost:3001/api/data';
+
+function sendMood(mood: string) {
+  axios.post(backendUrl, { mood })
+    .then(response => {
+      console.log('Response from server:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
 
 const Home: React.FC = () => {
 
@@ -28,6 +42,7 @@ const Home: React.FC = () => {
   const { mood, setMood } = context;
   React.useEffect(() => {
     console.log(`the mood is now ${mood}`);
+    sendMood(mood)
   }, [mood]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

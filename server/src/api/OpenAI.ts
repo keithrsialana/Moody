@@ -1,40 +1,44 @@
+require('dotenv').config({ path: '../../.env' });
 import OpenAI from "openai";
 const openai = new OpenAI();
 
 
+const OPEN_API_KEY = process.env.API_KEY;
+console.log(OPEN_API_KEY);
+
+let aiResponse = '';
+
+
+
 async function getMoodForOpenAI(mood: string): Promise<string> {
 
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      { role: "system", content: "You are a helpful assistant who is well versed with songs and the emotional response they convey to the listener." },
-      {
-        role: "user",
-        content: `I need you to make me a playlist based on my current emotions. My current emotion is: ${mood}`,
-      },
-    ],
-  });
+  fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPEN_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { "role": "user", "content": `You are a helpful assistant who is well versed with songs and the emotional response they convey to the listener. I need you to make me a playlist based on my current emotions. My current emotion is: ${mood}. Your response should only contain the titles and artists names for each song in the playlist.` }
+      ],
+      max_tokens: 100,
+      temperature: 0.7
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      aiResponse = data.choices[0].message.content;
+      console.log(aiResponse)
+    })
+    .catch(error => console.error('Error:', error));
 
-  console.log(completion.choices[0].message);
-  try {
-    const response = await fetch("/api/openai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        mood
-      }),
-    });
+  return aiResponse;
 
-
-
-    if (response.ok) return true;
-    else return false;
-  } catch (error) {
-    throw new Error(
-      "Something went wrong with validating the login information"
-    );
-  }
 }
+
+
+
+
 
