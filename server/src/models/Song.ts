@@ -2,7 +2,7 @@ import { Optional as _Optional, DataTypes, Model, Sequelize } from "sequelize";
 
 interface SongAttributes{
     id:number,
-    name:string,
+    song_name:string,
     artist:string,
     album:string,
     link:string,
@@ -15,13 +15,17 @@ interface SongCreationAttributes extends _Optional<SongAttributes, "id"> {}
 
 export class Song extends Model<SongAttributes, SongCreationAttributes> implements SongAttributes {
     public id!: number;
-    public name!: string;
+    public song_name!: string;
     public artist!: string;
     public album!: string;
     public link!: string;
     public length!: number;
     public cover_link!: string;
     public user_playlist_id!: number;
+
+    public getID():number{
+        return this.id;
+    }
 }
 
 export function SongFactory(sequelize:Sequelize): typeof Song {
@@ -32,7 +36,7 @@ export function SongFactory(sequelize:Sequelize): typeof Song {
                 autoIncrement: true,
                 primaryKey:true,
             },
-            name: {
+            song_name: {
                 type: DataTypes.STRING,
                 allowNull:false
             },
@@ -60,7 +64,6 @@ export function SongFactory(sequelize:Sequelize): typeof Song {
         {
 			tableName: "songs",
 			sequelize,
-			timestamps: true,
 			underscored: true,
 			freezeTableName: true,
 		}

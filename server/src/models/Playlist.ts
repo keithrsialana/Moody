@@ -15,6 +15,10 @@ export class Playlist extends Model<PlaylistAttributes, PlaylistCreationAttribut
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
+
+    public getID():number{
+        return this.id;
+    }
 }
 
 export function PlaylistFactory(sequelize: Sequelize): typeof Playlist {
@@ -36,12 +40,6 @@ export function PlaylistFactory(sequelize: Sequelize): typeof Playlist {
         {
 			tableName: "playlists",
 			sequelize,
-			hooks: {
-				afterValidate: async (playlist: Playlist) => {
-				},
-				beforeUpdate: async (playlist: Playlist) => {
-				},
-			},
 			timestamps: true,
 			underscored: true,
 			freezeTableName: true,
