@@ -1,8 +1,5 @@
-
-const OPEN_API_KEY = process.env.API_KEY;
-console.log(OPEN_API_KEY);
-
 export async function getMoodForOpenAI(mood: string): Promise<string> {
+  const OPEN_API_KEY = process.env.API_KEY;
   let aiResponse = '';
 
   await fetch('https://api.openai.com/v1/chat/completions', {
