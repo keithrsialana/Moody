@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSong, deleteSong, getAllSongsByPlaylist } from "../controllers/songController";
+import { createSong, deleteSong, getAllSongsByPlaylist } from "../controllers/songController.js";
 const router = Router();
 
 router.post("/add", createSong);
