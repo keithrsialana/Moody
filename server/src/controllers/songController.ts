@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Song } from "../models/Song.js";
 
-export const getAllSongsByPlaylist = async (_req:Request, res:Response): Promise<void> => {
+export const getAllSongsByPlaylist = async (_req:Request, _res:Response): Promise<void> => {
 	try {
 		// TODO: Need to figure out how to get playlist ID from request to implement this
 	} catch (error) {
@@ -9,11 +9,19 @@ export const getAllSongsByPlaylist = async (_req:Request, res:Response): Promise
 	}
 }
 
+/**
+ * Description
+ * Creates a song object and uses the Sequelized Song class to add to the database
+ * @param {Request} _req:Request
+ * @param {Response} _res:Response
+ * @returns {any}
+ */
 export const createSong = async (_req: Request, res: Response): Promise<void> => {
 	try {
 
 		// TODO: Something about this is wrong. Need to figure out how to get the playlist ID from the request.
-		const { song, username } = _req.body;
+		// const { song, username } = _req.body;
+		const { song } = _req.body;
 
 		const songObj = {
 			song_name: song.song_name,
@@ -41,6 +49,14 @@ export const createSong = async (_req: Request, res: Response): Promise<void> =>
 	}
 };
 
+
+/**
+ * Description
+ * A function that removes a song from the database
+ * @param {Request} _req:Request
+ * @param {Response} res:Response
+ * @returns {any}
+ */
 export const deleteSong = async (
 	_req: Request,
 	res: Response

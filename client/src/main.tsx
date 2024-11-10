@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
 // import React from 'react'
 // Pages
 import App from './App'
@@ -24,8 +25,10 @@ const router = createBrowserRouter([
   },
 ])
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
-)
+createRoot(document.getElementById("root")!).render(
+	<ThemeProvider>
+		<StrictMode>
+			<RouterProvider router={router} />
+		</StrictMode>
+	</ThemeProvider>
+);

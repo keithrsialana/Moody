@@ -53,6 +53,13 @@ const NavBar: React.FC = () => {
 			) : (
 				""
 			)}
+
+			{loginToken.username ? (<Link to="/currentplaylist" className="text-decoration-none me-3 d-flex align-items-center">
+				<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
+					Current Playlist
+				</div>
+			</Link>) : ('')}
+			
 			{loginToken.username ? (
 				<Link
 					to="/login"

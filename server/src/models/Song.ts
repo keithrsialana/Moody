@@ -58,7 +58,7 @@ export function SongFactory(sequelize:Sequelize): typeof Song {
                 
             },
             user_playlist_id: {
-                type:DataTypes.NUMBER,
+                type:DataTypes.INTEGER,
             }
         },
         {
