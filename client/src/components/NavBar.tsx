@@ -59,6 +59,7 @@ const NavBar: React.FC = () => {
 					Current Playlist
 				</div>
 			</Link>) : ('')}
+			
 			{loginToken.username ? (
 				<Link
 					to="/login"
