@@ -5,7 +5,7 @@ import UserContext from "../context/LoginContext";
 import axios from 'axios';
 
 
-const backendUrl = 'http://localhost:3001/api/data';
+const backendUrl = 'http://localhost:3001/openai';
 
 function sendMood(mood: string) {
   axios.post(backendUrl, { mood })
@@ -22,12 +22,12 @@ const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
   const context = useContext(MoodContext);
-  const userContext:any = useContext(UserContext);
-  const {loginToken} = userContext;
+  const userContext: any = useContext(UserContext);
+  const { loginToken } = userContext;
   const naviate = useNavigate();
-  
-  useEffect(()=>{
-    if(!loginToken.username)
+
+  useEffect(() => {
+    if (!loginToken.username)
       naviate('/login');
   }, []);
 
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
 
   };
 
-  function onMoodChange(e:any){
+  function onMoodChange(e: any) {
     setInputValue(e.target.value)
   }
 

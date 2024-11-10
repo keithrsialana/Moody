@@ -1,7 +1,3 @@
-require('dotenv').config({ path: '../../.env' });
-import OpenAI from "openai";
-const openai = new OpenAI();
-
 
 const OPEN_API_KEY = process.env.API_KEY;
 console.log(OPEN_API_KEY);
@@ -10,9 +6,10 @@ let aiResponse = '';
 
 
 
-async function getMoodForOpenAI(mood: string): Promise<string> {
 
-  fetch('https://api.openai.com/v1/chat/completions', {
+export async function getMoodForOpenAI(mood: string): Promise<string> {
+
+  await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,14 +28,10 @@ async function getMoodForOpenAI(mood: string): Promise<string> {
     .then(data => {
       aiResponse = data.choices[0].message.content;
       console.log(aiResponse)
+      return aiResponse;
     })
     .catch(error => console.error('Error:', error));
 
   return aiResponse;
 
 }
-
-
-
-
-
