@@ -2,6 +2,21 @@ import React, { useContext, useEffect } from "react";
 import MoodContext from "../context/MoodContext";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
+import axios from 'axios';
+
+
+const backendUrl = 'http://localhost:3001/api/data';
+
+function sendMood(mood: string) {
+  axios.post(backendUrl, { mood })
+    .then(response => {
+      console.log('Response from server:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
 
 const Home: React.FC = () => {
 
@@ -14,7 +29,7 @@ const Home: React.FC = () => {
   useEffect(()=>{
     if(!loginToken.username)
       naviate('/login');
-  },[]);
+  }, []);
 
   if (!context) {
     throw new Error("Mood must be used within a MoodProvider");
@@ -22,6 +37,7 @@ const Home: React.FC = () => {
   const { mood, setMood } = context;
   React.useEffect(() => {
     console.log(`the mood is now ${mood}`);
+    sendMood(mood)
   }, [mood]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,6 +47,8 @@ const Home: React.FC = () => {
     // store mood in database, also store current datetime. this will be for the history later. 
     // pass mood to the playlist page using useContext
     setMood(inputValue);
+    naviate('/currentplaylist');
+
   };
 
   function onMoodChange(e:any){
