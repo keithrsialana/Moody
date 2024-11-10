@@ -63,9 +63,8 @@ const NavBar: React.FC = () => {
 						Logout
 					</div>
 				</Link>
-			) : (
-				""
-			)}
+			) : ("")}
+
 			{loginToken.username ? (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
 					{`Welcome back, ${loginToken.username}!`}
@@ -80,6 +79,7 @@ const NavBar: React.FC = () => {
 					</div>
 				</Link>
 			)}
+
 		</nav>
 	);
 };
