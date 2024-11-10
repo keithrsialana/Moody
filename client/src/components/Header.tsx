@@ -7,7 +7,7 @@ const Header = () => {
 		<div className="d-flex" style={{backgroundColor:"inherit"}}>
 			<Link to={"/"}>
 				<img
-					src="../../public/favicon.svg"
+					src="favicon.svg"
 					alt="Moody Logo"
 					className="header-logo"
 				/>

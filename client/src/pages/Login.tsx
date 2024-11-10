@@ -1,8 +1,11 @@
 // import React from "react"
-import User from "../interfaces/User";
+// import User from "../interfaces/User";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../api/userAPI";
+import Auth from "../utils/auth";
+import { useContext } from "react";
 import UserContext from "../context/LoginContext";
 
 const Login: React.FC = () => {
@@ -11,8 +14,15 @@ const Login: React.FC = () => {
 	const [password, setPassword] = useState("");
 	const [warning, setWarning] = useState("");
 	const context: any = useContext(UserContext);
-	const { setLoggedInUser } = context;
+	const { setLoginToken } = context;
 	const navigate = useNavigate();
+
+	const [showPass, setShowPass] = useState(false);
+
+	const passButton = (e: any) => {
+		e.preventDefault();
+		setShowPass(!showPass);
+	};
 
 	// validate input
 	function onUsernameChange(e: any) {
@@ -30,62 +40,19 @@ const Login: React.FC = () => {
 		// prevents refreshing
 		e.preventDefault();
 		// get data from server
-		try {
-			await fetch(`/api/user/${username}`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-			.then((response) => response.json()) // if the return was successful
-			.then(async (data) => {
-				if (await validateLogin(username, password)) {
-					const dbUser:User =  data;
-					console.log(dbUser);
-					setLoggedInUser(dbUser as User);
-					navigate("/");
-				}
-				else {
-					setWarning("Wrong password");
-				}
-			})
-			.catch((error:any) => { // if there was something wrong with the response
-				setWarning("Wrong username or password");
-				throw new Error(error);
-			});
-		} catch (error) {
-			console.warn({ message: "there was an error", error: error });
+		const data = await login(username, password);
+		if (!data.token) {
+			setWarning("Wrong username or password");
+			return;
 		}
-	}
-
-	async function validateLogin(user: string, pass: string): Promise<boolean> {
-		try {
-			const response = await fetch("/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					username: user,
-					password: pass,
-				}),
-			});
-
-			if (response.ok) return true;
-			else return false;
-		} catch (error) {
-			throw new Error(
-				"Something went wrong with validating the login information"
-			);
-		}
+		setLoginToken(data);
+		Auth.login(data.token);
+		navigate("/");
 	}
 
 	return (
 		<div className="container text-center pt-5 vh-100">
-			<img
-				src="../../public/Moody_logo.svg"
-				alt="Moody Logo"
-				className="login-logo"
-			/>
+			<img src="Moody_logo.svg" alt="Moody Logo" className="login-logo" />
 			<h1>Log in to Moody</h1>
 			<form>
 				<div className="warnings mb-4">{warning}</div>
@@ -95,7 +62,7 @@ const Login: React.FC = () => {
 							Username
 						</label>
 					</div>
-					<div className="col-7">
+					<div className="col-7 w-50">
 						<input
 							type="text"
 							className="form-control"
@@ -112,15 +79,22 @@ const Login: React.FC = () => {
 							Password
 						</label>
 					</div>
-					<div className="col-7">
+					<div className="col-7 input-group mb-3 w-50">
 						<input
-							type="password"
-							className="form-control"
+							type={showPass ? "text" : "password"}
+							className="form-control w-50"
 							id="inpPassword"
 							placeholder="Password"
 							value={password}
 							onChange={onPasswordChange}
-						/>
+							aria-describedby="button-addon2"
+						/> 
+						<button
+							className="btn btn-outline-secondary"
+							type="button"
+							id="button-addon2"
+							onClick={passButton}
+						>👁️</button>
 					</div>
 				</div>
 				<div className="row justify-content-center">

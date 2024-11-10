@@ -3,11 +3,6 @@ import MoodContext from "../context/MoodContext";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
 import axios from 'axios';
-const style = {
-  moodHelp: {
-    color: 'white'
-  },
-};
 
 
 const backendUrl = 'http://localhost:3001/api/data';
@@ -27,12 +22,12 @@ const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
   const context = useContext(MoodContext);
-  const userContext: any = useContext(UserContext);
-  const { loggedInUser } = userContext;
+  const userContext:any = useContext(UserContext);
+  const {loginToken} = userContext;
   const naviate = useNavigate();
-
-  useEffect(() => {
-    if (!loggedInUser.username)
+  
+  useEffect(()=>{
+    if(!loginToken.username)
       naviate('/login');
   }, []);
 
@@ -56,19 +51,23 @@ const Home: React.FC = () => {
 
   };
 
+  function onMoodChange(e:any){
+    setInputValue(e.target.value)
+  }
+
   return (
     <div className="container text-center pt-5 vh-100">
       <form action="" onSubmit={handleSubmit}>
-        <label className="form-label" htmlFor="">How are you feeling today?</label>
+        <label className="form-label " htmlFor="">How are you feeling today?</label>
         <input
-          className="form-control required"
+          className="form-control required w-50 p-3 mx-auto p-2"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={onMoodChange}
           type="text"
           id="moodInput"
           placeholder="I'm feeling..."
         />
-        <div style={style.moodHelp} id="mood-help" className="form-text">We'll never share your mood with anyone else.</div>
+        <div id="mood-help">We'll never share your mood with anyone else.</div>
         <input type="submit" className="btn-primary" />
       </form>
 
