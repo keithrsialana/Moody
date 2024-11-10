@@ -1,25 +1,20 @@
 import { Optional as _Optional, DataTypes, Model, Sequelize } from "sequelize";
-import { Song } from "./Song.js";
 
 interface PlaylistAttributes {
     id: number,
-    userId: number,
-    songs: Song[],
+    name: string,
+    user_username: string,
 }
 
 interface PlaylistCreationAttributes extends _Optional<PlaylistAttributes, "id"> { }
 
 export class Playlist extends Model<PlaylistAttributes, PlaylistCreationAttributes> implements PlaylistAttributes {
     public id!: number;
-    public userId!: number;
-    public songs!: Song[];
+    public name!: string;
+    public user_username!: string;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
-
-    public async addSong(song: Song) {
-        this.songs.push(song);
-    }
 }
 
 export function PlaylistFactory(sequelize: Sequelize): typeof Playlist {
@@ -30,14 +25,13 @@ export function PlaylistFactory(sequelize: Sequelize): typeof Playlist {
                 autoIncrement: true,
                 primaryKey: true,
             },
-            userId: {
+            name: {
                 type: DataTypes.INTEGER,
+            },
+            user_username: {
+                type: DataTypes.STRING,
                 allowNull: false,
             },
-            songs: {
-                type: DataTypes.ARRAY,
-                allowNull: true,
-            }
         },
         {
 			tableName: "playlists",

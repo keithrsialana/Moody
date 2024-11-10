@@ -8,6 +8,7 @@ interface SongAttributes{
     link:string,
     length:number
     cover_link:string;
+    user_playlist_id:number;
 }
 
 interface SongCreationAttributes extends _Optional<SongAttributes, "id"> {}
@@ -20,7 +21,7 @@ export class Song extends Model<SongAttributes, SongCreationAttributes> implemen
     public link!: string;
     public length!: number;
     public cover_link!: string;
-
+    public user_playlist_id!: number;
 }
 
 export function SongFactory(sequelize:Sequelize): typeof Song {
@@ -51,17 +52,14 @@ export function SongFactory(sequelize:Sequelize): typeof Song {
             cover_link: {
                 type:DataTypes.STRING,
                 
+            },
+            user_playlist_id: {
+                type:DataTypes.NUMBER,
             }
         },
         {
 			tableName: "songs",
 			sequelize,
-			hooks: {
-				afterValidate: async (song: Song) => {
-				},
-				beforeUpdate: async (song: Song) => {
-				},
-			},
 			timestamps: true,
 			underscored: true,
 			freezeTableName: true,
