@@ -6,14 +6,13 @@ import { Request, Response } from "express";
 // router.post('/requestCode');
 
 router.get('/api/data', (_req: Request, res: Response) => {
-  res.json({ message: "Here’s the data" });
+  res.status(200).json({ message: "Here’s the data" });
 });
 
-router.post('/api/data', (req: Request, res: Response) => {
+router.post('/api/data', async (req: Request, res: Response) => {
   const { mood } = req.body;
-  const openAiResponse = getMoodForOpenAI(mood as string);
-  console.log(openAiResponse);
-  res.json({ message: `Received data: ${mood}` });
+  const openAiResponse = await getMoodForOpenAI(mood as string);
+  res.status(200).json({ message: `Received data!`, data: openAiResponse });
 });
 
 
