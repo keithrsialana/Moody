@@ -53,6 +53,13 @@ const NavBar: React.FC = () => {
 			) : (
 				""
 			)}
+
+			{loginToken.username ? (<Link to="/currentplaylist" className="text-decoration-none me-3 d-flex align-items-center">
+				<div className="d-flex bg-primary h-50 align-items-center rounded ps-3 pe-3 text-black">
+					Current Playlist
+				</div>
+			</Link>) : ('')}
+			
 			{loginToken.username ? (
 				<Link
 					to="/login"
@@ -63,9 +70,8 @@ const NavBar: React.FC = () => {
 						Logout
 					</div>
 				</Link>
-			) : (
-				""
-			)}
+			) : ("")}
+
 			{loginToken.username ? (
 				<div className="text-decoration-none me-3 d-flex align-items-center">
 					{`Welcome back, ${loginToken.username}!`}
@@ -80,6 +86,7 @@ const NavBar: React.FC = () => {
 					</div>
 				</Link>
 			)}
+
 		</nav>
 	);
 };

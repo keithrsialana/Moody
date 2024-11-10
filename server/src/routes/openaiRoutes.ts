@@ -1,0 +1,28 @@
+import express from "express";
+import { getMoodForOpenAI } from "../api/OpenAI.js";
+// import openai from '../api/Spotify';
+const router = express.Router();
+import { Request, Response } from "express";
+// router.post('/requestCode');
+
+router.get("/api/data", (_req: Request, res: Response) => {
+	res.status(200).json({ message: "Here’s the data" });
+});
+
+router.post("/api/data", async (req: Request, res: Response) => {
+	const { mood } = req.body;
+	const openAiResponse = await getMoodForOpenAI(mood as string);
+	const songsArray = openAiResponse
+		.split("|")
+		.map((song) => song.trim().replace(/^\d+\.\s*/, "")) // remove the numbering, leading, and trailing spaces
+		.filter((song) => song.length > 0)
+		.map((song) => {
+      // make each song into an object with "songName, artist" attributes, removing the ' - ' between the name and the artist.
+			const [songName, artist] = song.split(" - ").map((str) => str.trim());
+			return { songName, artist };
+		});
+
+	res.status(200).json({ message: `Received data!`, song_list: songsArray });
+});
+
+export default router;
