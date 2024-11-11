@@ -8,19 +8,24 @@ export default defineConfig({
 		},
 	},
   preview:{
-    port: 3000
+    port: 10696
   },
 	server: {
-		port: 3000,
+		port: 10696,
 		open: true,
 		proxy: {
 			"/api": {
-				target: "http://localhost:3001",
+				target: "http://localhost:10000",
 				changeOrigin: true,
 				secure: false,
 			},
 			"/auth": {
-				target: "http://localhost:3001",
+				target: "http://localhost:10000",
+				changeOrigin: true,
+				secure: false,
+			},
+			"/openai": {
+				target: "http://localhost:10000",
 				changeOrigin: true,
 				secure: false,
 			},
