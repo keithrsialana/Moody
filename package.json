@@ -13,9 +13,10 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "client:build": "cd client && npm run build",
     "client:dev": "cd client && npm run dev",
+    "client":"cd client && npm run preview",
     "build": "cd client && npm run build",
     "render-build": "npm install && npm run build",
-    "render-prod":"concurrently \"npm run server\" \"npm run client:build\""
+    "render-prod":"concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
