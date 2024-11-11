@@ -17,7 +17,6 @@ function sendMood(mood: string) {
     });
 }
 
-
 const Home: React.FC = () => {
 
   const [inputValue, setInputValue] = React.useState('');
