@@ -4,7 +4,10 @@ import allRoutes from "./routes/index.js";
 import { User } from "./models/index.js";
 import users from "./dbusers.js";
 import path from "path";
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -17,7 +20,7 @@ app.use(express.json());
 app.use(allRoutes);
 
 app.get("*", (_req, res) => {
-	res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+	res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
 });
 
 sequelize.sync({ force: true }).then(async () => {
