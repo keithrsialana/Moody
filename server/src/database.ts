@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 
 dotenv.config();
-const sequelize = process.env.DATBASE_URL
-	? new Sequelize(process.env.DATBASE_URL)
+const sequelize = process.env.DATABASE_URL
+	? new Sequelize(process.env.DATABASE_URL)
 	: new Sequelize(
         process.env.DB_NAME || "",
         process.env.DB_USER || "",
