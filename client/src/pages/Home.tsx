@@ -11,6 +11,7 @@ function sendMood(mood: string) {
   axios.post(backendUrl, { mood })
     .then(response => {
       console.log('Response from server:', response.data);
+      localStorage.setItem("playlist", JSON.stringify(response.data));
     })
     .catch(error => {
       console.error('Error:', error);
