@@ -11,7 +11,6 @@ import { useContext } from "react";
 // import React from 'react';
 
 const App: React.FC = () => {
-	// console.log(themeContext);
 	const themeContext: any = useContext(ThemeContext);
 	const { theme } = themeContext;
 
