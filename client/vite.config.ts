@@ -15,17 +15,17 @@ export default defineConfig({
 		open: true,
 		proxy: {
 			"/api": {
-				target: "https://moody-lawj.onrender.com",
+				target: "https://moody-lawj.onrender.com:10000",
 				changeOrigin: true,
 				secure: false,
 			},
 			"/auth": {
-				target: "https://moody-lawj.onrender.com",
+				target: "https://moody-lawj.onrender.com:10000",
 				changeOrigin: true,
 				secure: false,
 			},
 			"/openai": {
-				target: "https://moody-lawj.onrender.com",
+				target: "https://moody-lawj.onrender.com:10000",
 				changeOrigin: true,
 				secure: false,
 			},

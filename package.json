@@ -16,7 +16,7 @@
     "client":"cd client && npm run preview",
     "build": "cd client && npm run build",
     "render-build": "npm install && npm run build",
-    "render-prod":"concurrently \"npm run server\" \"npm run client\""
+    "render-prod":"concurrently \"npm run client\"\"npm run server\""
   },
   "keywords": [],
   "author": "",
