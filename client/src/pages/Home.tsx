@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../context/LoginContext";
 import axios from 'axios';
 
-
-const backendUrl = 'http://localhost:3001/openai';
-
 function sendMood(mood: string) {
-  axios.post(backendUrl, { mood })
+  axios.post('/openai/api/data', { mood })
     .then(response => {
       console.log('Response from server:', response.data);
+      localStorage.setItem("playlist", JSON.stringify(response.data));
     })
     .catch(error => {
       console.error('Error:', error);
