@@ -27,7 +27,7 @@ const Playlist: React.FC = () => {
 
     return (
         // Maybe add sorting methods later on? idk
-        <table className="table">
+        <table className="table table-striped">
             <caption>Your playlist</caption>
             <thead>
                 <tr>
@@ -38,10 +38,12 @@ const Playlist: React.FC = () => {
                 </tr>
             </thead>
             <tbody>
-                {playlist.map((item: Playlist) => (
+                {playlist.map((item: any) => (
                     <tr>
-                        <td>{item.song_name}</td>
+                        <td>{item.songName}</td>
                         <td>{item.artist}</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
                     </tr>
                 ))}
             </tbody>
