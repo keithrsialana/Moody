@@ -25,6 +25,7 @@ const Home: React.FC = () => {
   const { loginToken } = userContext;
   const naviate = useNavigate();
 
+  // if user isn't logged in, forcefully push user to login page
   useEffect(() => {
     if (!loginToken.username)
       naviate('/login');
