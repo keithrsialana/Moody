@@ -11,7 +11,7 @@ const getUsers = async () => {
 		const data = await response.json();
 
 		if (!response.ok) {
-			throw new Error("Invalid user API response, check network tab!");
+			throw new Error("Invalid user API respdonse, check network tab!");
 		}
 
 		return data;
