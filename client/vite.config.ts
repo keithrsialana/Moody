@@ -7,9 +7,9 @@ export default defineConfig({
 			external: ["bootstrap"],
 		},
 	},
-  preview:{
-    port: 3000
-  },
+	preview: {
+		port: 3000
+	},
 	server: {
 		port: 3000,
 		open: true,
@@ -20,6 +20,11 @@ export default defineConfig({
 				secure: false,
 			},
 			"/auth": {
+				target: "http://localhost:3001",
+				changeOrigin: true,
+				secure: false,
+			},
+			"/openai": {
 				target: "http://localhost:3001",
 				changeOrigin: true,
 				secure: false,
