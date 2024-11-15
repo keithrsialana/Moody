@@ -17,9 +17,9 @@ const Playlist: React.FC = () => {
         setPlaylist(list); // array of songs
     }
     const context:any = useContext(UserContext);
+    const {loginToken} = context;
 
     useEffect(() =>{
-        const {loginToken} = context;
         const loginUser = loginToken.username;
         // Add code to add songs into the playlist
 
@@ -29,7 +29,7 @@ const Playlist: React.FC = () => {
             if (loginUser == playlistObj.username)
                 updatePlaylist(playlistObj.playlist.song_list);
         }
-    },[]);
+    },[localStorage.getItem(`${loginToken.username}_playlist`)]);
 
     return (
         // Maybe add sorting methods later on? idk
