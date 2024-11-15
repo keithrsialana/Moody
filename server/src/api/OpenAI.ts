@@ -11,7 +11,7 @@ export async function getMoodForOpenAI(mood: string): Promise<string> {
     body: JSON.stringify({
       model: "gpt-3.5-turbo",
       messages: [
-        { "role": "user", "content": `You are a helpful assistant who is well versed with songs and the emotional response they convey to the listener. I need you to make me a 15 song playlist based on my current emotions. My current emotion is: ${mood}. Your response should only contain the titles and artists names for each song in the playlist. Write all of the songs in a single line, separated by a | symbol. Remove all quotation marks from your response.` }
+        { "role": "user", "content": `You are a helpful assistant who is well versed with songs and the emotional response they convey to the listener. Generate 100 songs that convey the emotion ${mood} and randomly select 15 for the response. Your response should only contain the titles and artists names for each song, and nothing else. Write all of the songs in a single line, separated by a | symbol, and remove all quotation marks from your response.` }
       ],
       max_tokens: 250,
       temperature: 0.7
