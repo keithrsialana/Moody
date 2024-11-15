@@ -39,8 +39,8 @@ const Home: React.FC = () => {
   }
   
   
-  const handleSubmit = async (_event: React.FormEvent<HTMLFormElement>) => {
-    // event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     // store mood in database, also store current datetime. this will be for the history later. 
     // pass mood to the playlist page using useContext
     await sendMood(inputValue);
