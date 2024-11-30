@@ -17,7 +17,7 @@ This group project aims to use OpenAI API and Spotify API to collaborate with th
 2. Navigate to the project directory and enter ```npm i && npm run install``` to install the project's dependencies
 ## Usage Instructions
 ### Deployed application
-The deployed application will be available [here](https://moody-lawj.onrender.com/) on the Render service. As this is being hosted on Render, it will take a couple of minutes for the application to load. After waiting, just refresh the page until the website is accessible.
+The deployed application will be available [here](https://moody-so0y.onrender.com/) on the Render service. As this is being hosted on Render, it will take a couple of minutes for the application to load. After waiting, just refresh the page until the website is accessible.
 ### Local deployment
 1. To run the application, make sure the dependencies have been installed using ```npm i && npm run install```, and after it's all installed, run ```npm run start```
 2. On the web browser, the application should be accessible in [http://localhost:3001](http://localhost:3001)
